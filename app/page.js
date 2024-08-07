@@ -15,7 +15,63 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(false);
 
     const sendMessage = async () => {
-        // Waiting for backend Implementation
+        if (!message.trim()) return; // Don't send empty messages
+
+        setMessage(""); // Clear the input field
+        setMessages((messages) => [
+            ...messages,
+            { role: "user", content: message }, // Add the user's message to the chat
+            { role: "assistant", content: "" }, // Add a placeholder for the assistant's response
+        ]);
+
+        try {
+            // Send the message to the server
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify([
+                    ...messages,
+                    { role: "user", content: message },
+                ]),
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const reader = response.body.getReader(); // Get a reader to read the response body
+            const decoder = new TextDecoder(); // Create a decoder to decode the response text
+
+            let result = "";
+            // Function to process the text from the response
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                const text = decoder.decode(value || new Uint8Array(), {
+                    stream: true,
+                }); // Decode the text
+                setMessages((messages) => {
+                    let lastMessage = messages[messages.length - 1]; // Get the last message (assistant's placeholder)
+                    let otherMessages = messages.slice(0, messages.length - 1); // Get all other messages
+                    return [
+                        ...otherMessages,
+                        { ...lastMessage, content: lastMessage.content + text }, // Append the decoded text to the assistant's message
+                    ];
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setMessages((messages) => [
+                ...messages,
+                {
+                    role: "assistant",
+                    content:
+                        "I'm sorry, but I encountered an error. Please try again later.",
+                },
+            ]);
+        }
     };
 
     const handleKeyPress = (event) => {
