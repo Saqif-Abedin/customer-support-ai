@@ -146,7 +146,7 @@ export default function Home() {
                 justifyContent="center"
                 alignItems="center"
                 style={{
-                    backgroundImage: 'url("/dark-blue-gradient-background.jpg")',
+                    backgroundImage: 'url("/gradient-blue-abstract-background-smooth-dark-blue-with-black-vignette-studio.jpg")',
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                 }}
