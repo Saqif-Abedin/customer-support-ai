@@ -21,7 +21,7 @@ export default function Home() {
         setMessages((messages) => [
             ...messages,
             { role: "user", content: message }, // Add the user's message to the chat
-            { role: "assistant", content: "" }, // Add a placeholder for the assistant's response
+            // { role: "assistant", content: "" }, // Add a placeholder for the assistant's response. Wait for backend
         ]);
 
         try {
@@ -68,7 +68,7 @@ export default function Home() {
                 {
                     role: "assistant",
                     content:
-                        "I'm sorry, but I encountered an error. Please try again later.",
+                        "I'm sorry, but Saqif hasn't setup the backend yet. Please try again later.",
                 },
             ]);
         }
