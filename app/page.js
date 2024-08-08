@@ -69,10 +69,12 @@ export default function Home() {
     const sendMessage = async () => {
         if (!message.trim()) return;
 
+        setIsLoading(true);
         setMessage("");
         setMessages((messages) => [
             ...messages,
             { role: "user", content: message },
+            { role: 'assistant', content: '' },
         ]);
 
         try {
@@ -116,6 +118,8 @@ export default function Home() {
                     content: "I'm sorry, but Saqif hasn't setup the backend yet. Please try again later.",
                 },
             ]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
