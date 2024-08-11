@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
-                <title>Tablighi Titans Support Page</title>
+                <title>Support Bot</title>
             </head>
             <body className={inter.className}>
                 {" "}

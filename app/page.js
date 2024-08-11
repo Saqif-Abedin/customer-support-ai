@@ -60,7 +60,7 @@ export default function Home() {
     const [messages, setMessages] = useState([
         {
             role: "assistant",
-            content: "Hi! I'm SaqifMe support assistant. How can I help you today?",
+            content: "Hi! I'm the AlfAjr support assistant. How can I help you today?",
         },
     ]);
     const [message, setMessage] = useState("");
@@ -115,7 +115,7 @@ export default function Home() {
                 ...messages,
                 {
                     role: "assistant",
-                    content: "I'm sorry, but Saqif hasn't setup the backend yet. Please try again later.",
+                    content: "I'm sorry, but an error has occurred. Please rephrase your prompt or try again later.",
                 },
             ]);
         } finally {
